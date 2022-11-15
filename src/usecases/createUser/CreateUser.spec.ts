@@ -2,7 +2,7 @@ import { validate } from 'uuid'
 import bcrypt from 'bcrypt'
 import { User } from '../../models/user/User'
 import { CreateUser } from './CreateUser'
-import { IUserRepository } from '../../repositories/IUserRepository'
+import { IUserRepository } from '../../infra/repositories/IUserRepository'
 
 class FakeRepository implements IUserRepository {
   users: User[]
@@ -15,13 +15,14 @@ class FakeRepository implements IUserRepository {
     this.users.push(userData)
   }
 
-  async listByUsername (username: string): Promise<User | undefined> {
+  async listByUsername (username: string): Promise<User | null> {
     const user = this.users.find(user => user.username === username)
+    if (user == null) return null
     return user
   }
 }
 
-describe('CreateUserService', () => {
+describe('Create user usecase', () => {
   it('Deve criar um usuário e a senha deve ser criptogrfada', async () => {
     const fakeRepository = new FakeRepository()
 

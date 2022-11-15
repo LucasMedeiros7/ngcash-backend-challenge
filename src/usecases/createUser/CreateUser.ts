@@ -1,6 +1,6 @@
 import { Account } from '../../models/account/Account'
 import { User } from '../../models/user/User'
-import { IUserRepository } from '../../repositories/IUserRepository'
+import { IUserRepository } from '../../infra/repositories/IUserRepository'
 import { validatePassword } from '../../utils/validatePassword'
 
 interface CreateUserDTO {
@@ -23,10 +23,10 @@ class CreateUser {
       throw new Error('Usuário já cadastrado com esse "username"')
     }
 
-    const { id: accountId } = new Account()
-    const user = new User({ username, password, accountId })
+    const account = new Account()
+    const user = new User({ username, password, accountId: account.id })
 
-    await this.userRepository.create(user)
+    await this.userRepository.create(user, account)
     return user
   }
 }
