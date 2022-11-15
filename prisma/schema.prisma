@@ -34,7 +34,7 @@ model Transaction {
   id                String  @id
   debitedAccountId  String? @unique
   creditedAccountId String? @unique
-  balance           Int
+  amount            Int
 
   accountOriginId      Account? @relation("debitedAccountId", fields: [debitedAccountId], references: [id])
   accountDestinationId Account? @relation("creditedAccountId", fields: [creditedAccountId], references: [id])
