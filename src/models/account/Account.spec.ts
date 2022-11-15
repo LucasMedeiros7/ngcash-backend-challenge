@@ -1,6 +1,6 @@
-import { validate } from "uuid";
-import { convertToBRLFormat } from "../../utils/convertToBRLFormat";
-import { Account } from "./Account";
+import { validate } from 'uuid'
+import { convertToBRLFormat } from '../../utils/convertToBRLFormat'
+import { Account } from './Account'
 
 describe('Create account model', () => {
   it('Should be able create an account', () => {
@@ -8,5 +8,5 @@ describe('Create account model', () => {
 
     expect(validate(account.id)).toBe(true)
     expect(convertToBRLFormat(account.balance)).toBe('R$100,00')
-  });
-});
+  })
+})

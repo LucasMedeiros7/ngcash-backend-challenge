@@ -7,15 +7,15 @@ import { IUserRepository } from '../../repositories/IUserRepository'
 class FakeRepository implements IUserRepository {
   users: User[]
 
-  constructor() {
+  constructor () {
     this.users = []
   }
 
-  async create(userData: User): Promise<void> {
+  async create (userData: User): Promise<void> {
     this.users.push(userData)
   }
 
-  async listByUsername(username: string): Promise<User | undefined> {
+  async listByUsername (username: string): Promise<User | undefined> {
     const user = this.users.find(user => user.username === username)
     return user
   }
