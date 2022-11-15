@@ -1,5 +1,5 @@
-import { Account } from '../../entities/Account'
-import { User } from '../../entities/User'
+import { Account } from '../../models/account/Account'
+import { User } from '../../models/user/User'
 import { IUserRepository } from '../../repositories/IUserRepository'
 import { validatePassword } from '../../utils/validatePassword'
 
@@ -9,9 +9,9 @@ interface CreateUserDTO {
 }
 
 class CreateUser {
-  constructor (private readonly userRepository: IUserRepository) { }
+  constructor(private readonly userRepository: IUserRepository) { }
 
-  async execute ({ username, password }: CreateUserDTO): Promise<User> {
+  async execute({ username, password }: CreateUserDTO): Promise<User> {
     if (!validatePassword(password)) {
       throw new Error(
         'Senha inválida \n Deve conter pelo menos 8 caracteres, um número e uma letra maiúscula.'

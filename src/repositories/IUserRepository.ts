@@ -1,4 +1,4 @@
-import { User } from '../entities/User'
+import { User } from '../models/user/User'
 
 export interface IUserRepository {
   create: (userData: User) => Promise<void>

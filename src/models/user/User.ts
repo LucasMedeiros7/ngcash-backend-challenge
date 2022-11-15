@@ -13,7 +13,7 @@ export class User {
   password: string
   accountId: string
 
-  constructor ({ username, password, accountId }: input) {
+  constructor({ username, password, accountId }: input) {
     this.id = uuidv4()
     this.username = username
     this.password = bcrypt.hashSync(password, 10)

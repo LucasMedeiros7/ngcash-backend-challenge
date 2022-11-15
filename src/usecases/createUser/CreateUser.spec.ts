@@ -1,21 +1,21 @@
 import { validate } from 'uuid'
 import bcrypt from 'bcrypt'
-import { User } from '../../entities/User'
+import { User } from '../../models/user/User'
 import { CreateUser } from './CreateUser'
 import { IUserRepository } from '../../repositories/IUserRepository'
 
 class FakeRepository implements IUserRepository {
   users: User[]
 
-  constructor () {
+  constructor() {
     this.users = []
   }
 
-  async create (userData: User): Promise<void> {
+  async create(userData: User): Promise<void> {
     this.users.push(userData)
   }
 
-  async listByUsername (username: string): Promise<User> {
+  async listByUsername(username: string): Promise<User | undefined> {
     const user = this.users.find(user => user.username === username)
     return user
   }
