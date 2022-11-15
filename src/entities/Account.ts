@@ -4,8 +4,8 @@ export class Account {
   id: string
   balance: number
 
-  constructor () {
+  constructor() {
     this.id = uuidv4()
-    this.balance = 100
+    this.balance = 10000
   }
 }
