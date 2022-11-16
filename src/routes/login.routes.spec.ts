@@ -3,72 +3,22 @@ import { app } from '../'
 import { prisma } from '../infra/db/database'
 
 beforeAll(async () => {
-  await Promise.all([
-    await prisma.user.deleteMany(),
-    await prisma.account.deleteMany()
-  ]).catch(console.error)
+  await prisma.user.deleteMany()
+  await prisma.account.deleteMany()
 })
 
 afterAll(async () => {
-  await Promise.all([
-    await prisma.user.deleteMany(),
-    await prisma.account.deleteMany()
-  ]).catch(console.error)
-})
-
-describe('[POST] /users', () => {
-  it('Deve ser possível criar um usuário', async () => {
-    const response = await request(app)
-      .post('/users')
-      .send({
-        username: 'fakename1',
-        password: 'V4lidPassword'
-      })
-      .expect(201)
-
-    expect(response.body.username).toBe('fakename1')
-    expect(response.body.password).toBeFalsy()
-  })
-
-  it('Deve retornar 409 quando o username já existir', async () => {
-    await request(app)
-      .post('/users')
-      .send({
-        username: 'fakename2',
-        password: 'V4lidPassword'
-      })
-      .expect(201)
-
-    const response = await request(app)
-      .post('/users')
-      .send({
-        username: 'fakename2',
-        password: 'V4lidPassword'
-      })
-      .expect(409)
-
-    expect(response.body.error).toBeTruthy()
-  })
-})
-
-it('Deve retornar 422 se os dados estiverem incorretos', async () => {
-  const response = await request(app)
-    .post('/users')
-    .send({
-      username: 'fakename3',
-      password: 'invalidPassword'
-    })
-    .expect(422)
-
-  expect(response.body.error).toBeTruthy()
+  await prisma.user.deleteMany()
+  await prisma.account.deleteMany()
 })
 
 describe('[POST] /login', () => {
   it('Deve retornar um token de acesso quando o usuário fizer o login', async () => {
-    await request(app).post('/users').send({
+    const responsed = await request(app).post('/users').send({
       username: 'fakename4',
       password: 'V4lidPassword'
     })
+    console.log(responsed.body)
 
     const response = await request(app)
       .post('/login')
