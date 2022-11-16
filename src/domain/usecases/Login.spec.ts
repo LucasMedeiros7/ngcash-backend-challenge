@@ -2,14 +2,9 @@ import jwt from 'jsonwebtoken'
 import { Login } from './Login'
 import { CreateUser } from './CreateUser'
 import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
+import { TokenPayload } from '../../middlewares/authMiddleware'
 import dotenv from 'dotenv'
 dotenv.config()
-
-interface TokenPayload {
-  id: string
-  iat: number
-  exp: number
-}
 
 describe('Login use case', () => {
   let fakeUserRepository: FakeUserRepository
@@ -25,17 +20,18 @@ describe('Login use case', () => {
       username: 'fakename',
       password: 'V4lidPassword'
     }
-    const user = await createUserUseCase.execute(userPayload)
+    await createUserUseCase.execute(userPayload)
     const loginUseCase = new Login(fakeUserRepository)
 
     const { accessToken } = await loginUseCase.execute(userPayload)
 
     const secret = process.env.ACCESS_TOKEN_SECRET as string
+    console.log(secret)
     const token = jwt.verify(accessToken, secret) as TokenPayload
 
     expect(token).toHaveProperty('iat')
     expect(token).toHaveProperty('exp')
-    expect(token.id).toBe(user.id)
+    expect(token.username).toBe('fakename')
   })
 
   it('Deve retornar um erro caso a senha esteja errada', async () => {

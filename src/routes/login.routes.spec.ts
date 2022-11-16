@@ -14,12 +14,6 @@ afterAll(async () => {
 
 describe('[POST] /login', () => {
   it('Deve retornar um token de acesso quando o usuário fizer o login', async () => {
-    const responsed = await request(app).post('/users').send({
-      username: 'fakename4',
-      password: 'V4lidPassword'
-    })
-    console.log(responsed.body)
-
     const response = await request(app)
       .post('/login')
       .send({
