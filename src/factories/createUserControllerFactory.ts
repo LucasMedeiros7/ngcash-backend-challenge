@@ -1,5 +1,5 @@
-import { CreateUserController } from '../controllers/createUserController/CreateUserController'
-import { CreateUser } from '../domain/usecases/createUser/CreateUser'
+import { CreateUserController } from '../controllers/CreateUserController'
+import { CreateUser } from '../domain/usecases/CreateUser'
 import { UserRepository } from '../infra/repositories/implementations/UserRepository'
 
 export function makeCreateUserController (): CreateUserController {

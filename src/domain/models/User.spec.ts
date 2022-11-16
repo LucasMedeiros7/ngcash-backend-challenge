@@ -1,5 +1,5 @@
 import { validate } from 'uuid'
-import { Account } from '../account/Account'
+import { Account } from './Account'
 import { User } from './User'
 import bcrypt from 'bcrypt'
 

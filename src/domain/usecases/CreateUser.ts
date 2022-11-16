@@ -1,7 +1,7 @@
-import { Account } from '../../models/account/Account'
-import { User } from '../../models/user/User'
-import { IUserRepository } from '../../../infra/repositories/IUserRepository'
-import { validatePassword } from '../../../utils/validatePassword'
+import { Account } from '../models/Account'
+import { User } from '../models/User'
+import { IUserRepository } from '../../infra/repositories/IUserRepository'
+import { validatePassword } from '../../utils/validatePassword'
 
 interface CreateUserDTO {
   username: string
