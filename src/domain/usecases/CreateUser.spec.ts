@@ -4,7 +4,7 @@ import { User } from '../models/User'
 import { CreateUser } from './CreateUser'
 import { IUserRepository } from '../../infra/repositories/IUserRepository'
 
-class FakeRepository implements IUserRepository {
+export class FakeRepository implements IUserRepository {
   users: User[]
 
   constructor () {
