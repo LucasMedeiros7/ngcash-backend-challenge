@@ -12,15 +12,16 @@ class CreateUser {
   constructor (private readonly userRepository: IUserRepository) { }
 
   async execute ({ username, password }: CreateUserDTO): Promise<User> {
+    const userAlreadyExists = await this.userRepository.listByUsername(username)
+
     if (!validatePassword(password)) {
       throw new Error(
-        'Senha inválida \n Deve conter pelo menos 8 caracteres, um número e uma letra maiúscula.'
+        'Senha deve conter pelo menos 8 caracteres, um número e uma letra maiúscula.'
       )
     }
 
-    const userAlreadyExists = await this.userRepository.listByUsername(username)
     if (userAlreadyExists != null) {
-      throw new Error('Usuário já cadastrado com esse "username"')
+      throw new Error('Usuário já cadastrado com esse username')
     }
 
     const account = new Account()

@@ -10,7 +10,8 @@ class CreateUserController {
       const user = await this.createUserUseCase.execute({ username, password });
       return response.status(201).json({ ...user, password: undefined });
     } catch (err) {
-      return response.status(400).json({ erro: err.message });
+      let errorCodeStatus = err.message.startsWith('Usuário') ? 409 : 422
+      return response.status(errorCodeStatus).json({ error: err.message });
     }
   }
 }
