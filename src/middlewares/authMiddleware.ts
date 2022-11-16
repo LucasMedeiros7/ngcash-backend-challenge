@@ -24,6 +24,6 @@ export function authMiddleware (
     request.username = username
     return next()
   } catch {
-    response.sendStatus(403)
+    response.status(403).json({ error: 'Usuário não autorizado' })
   }
 }

@@ -58,3 +58,41 @@ describe('[POST] /users', () => {
     expect(response.body.error).toBeTruthy()
   })
 })
+
+describe('[GET] /users/balance', () => {
+  it('Deve exibir o saldo atual do usuário', async () => {
+    await request(app).post('/users').send({
+      username: 'fakename150',
+      password: 'V4lidPassword'
+    })
+
+    const loginResponse = await request(app).post('/login').send({
+      username: 'fakename150',
+      password: 'V4lidPassword'
+    })
+
+    const getBalanceResponse = await request(app)
+      .get('/users/balance')
+      .set({ Authorization: `Bearer ${loginResponse.body.accessToken as string}` })
+      .expect(200)
+
+    expect(getBalanceResponse.body).toMatchObject({
+      username: 'fakename150',
+      balance: 'R$100,00'
+    })
+  })
+
+  it('Deve retornar um 403 se o usuário não estiver logado', async () => {
+    await request(app).post('/users').send({
+      username: 'fakename150',
+      password: 'V4lidPassword'
+    })
+
+    const getBalanceResponse = await request(app)
+      .get('/users/balance')
+      .set({ Authorization: 'Bearer invalidtoken' })
+      .expect(403)
+
+    expect(getBalanceResponse.body.error).toBeTruthy()
+  })
+})
