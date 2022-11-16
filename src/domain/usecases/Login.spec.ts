@@ -26,7 +26,6 @@ describe('Login use case', () => {
     const { accessToken } = await loginUseCase.execute(userPayload)
 
     const secret = process.env.ACCESS_TOKEN_SECRET as string
-    console.log(secret)
     const token = jwt.verify(accessToken, secret) as TokenPayload
 
     expect(token).toHaveProperty('iat')
