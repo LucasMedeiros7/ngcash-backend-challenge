@@ -1,7 +1,7 @@
-import { Account } from '../../../domain/models/Account'
-import { User } from '../../../domain/models/User'
-import { IUserRepository } from '../IUserRepository'
-import { prisma } from '../../db/database'
+import { Account } from '../../domain/models/Account'
+import { User } from '../../domain/models/User'
+import { IUserRepository } from './IUserRepository'
+import { prisma } from '../db/database'
 
 class UserRepository implements IUserRepository {
   async create (userData: User, accountData: Account): Promise<void> {

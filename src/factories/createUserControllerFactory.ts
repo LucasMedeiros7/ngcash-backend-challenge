@@ -1,6 +1,6 @@
 import { CreateUserController } from '../controllers/CreateUserController'
 import { CreateUser } from '../domain/usecases/CreateUser'
-import { UserRepository } from '../infra/repositories/implementations/UserRepository'
+import { UserRepository } from '../infra/repositories/UserRepository'
 
 export function makeCreateUserController (): CreateUserController {
   const userRepository = new UserRepository()

@@ -1,30 +1,11 @@
 import { validate } from 'uuid'
 import bcrypt from 'bcrypt'
-import { User } from '../models/User'
 import { CreateUser } from './CreateUser'
-import { IUserRepository } from '../../infra/repositories/IUserRepository'
-
-export class FakeRepository implements IUserRepository {
-  users: User[]
-
-  constructor () {
-    this.users = []
-  }
-
-  async create (userData: User): Promise<void> {
-    this.users.push(userData)
-  }
-
-  async listByUsername (username: string): Promise<User | null> {
-    const user = this.users.find(user => user.username === username)
-    if (user == null) return null
-    return user
-  }
-}
+import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
 
 describe('Create user usecase', () => {
   it('Deve criar um usuário e a senha deve ser criptogrfada', async () => {
-    const fakeRepository = new FakeRepository()
+    const fakeRepository = new FakeUserRepository()
 
     const service = new CreateUser(fakeRepository)
     const user = await service.execute({
@@ -39,7 +20,7 @@ describe('Create user usecase', () => {
   })
 
   it('Deve retornar um erro quando receber uma senha inválida', async () => {
-    const fakeRepository = new FakeRepository()
+    const fakeRepository = new FakeUserRepository()
 
     const service = new CreateUser(fakeRepository)
     await expect(async () => {
@@ -51,7 +32,7 @@ describe('Create user usecase', () => {
   })
 
   it('Deve retornar um erro quando o username já estiver cadastrado', async () => {
-    const fakeRepository = new FakeRepository()
+    const fakeRepository = new FakeUserRepository()
     const service = new CreateUser(fakeRepository)
 
     await expect(async () => {

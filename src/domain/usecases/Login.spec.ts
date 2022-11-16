@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { Login } from './Login'
 import { CreateUser } from './CreateUser'
-import { FakeRepository } from './CreateUser.spec'
+import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -12,12 +12,12 @@ interface TokenPayload {
 }
 
 describe('Login use case', () => {
-  let fakeRepository: FakeRepository
+  let fakeUserRepository: FakeUserRepository
   let createUserUseCase: CreateUser
 
   beforeEach(() => {
-    fakeRepository = new FakeRepository()
-    createUserUseCase = new CreateUser(fakeRepository)
+    fakeUserRepository = new FakeUserRepository()
+    createUserUseCase = new CreateUser(fakeUserRepository)
   })
 
   it('Deve retornar um token jwt quando o login for efetuado com sucesso', async () => {
@@ -26,7 +26,7 @@ describe('Login use case', () => {
       password: 'V4lidPassword'
     }
     const user = await createUserUseCase.execute(userPayload)
-    const loginUseCase = new Login(fakeRepository)
+    const loginUseCase = new Login(fakeUserRepository)
 
     const { accessToken } = await loginUseCase.execute(userPayload)
 
@@ -44,7 +44,7 @@ describe('Login use case', () => {
       password: 'V4lidPassword'
     }
     await createUserUseCase.execute(userPayload)
-    const loginUseCase = new Login(fakeRepository)
+    const loginUseCase = new Login(fakeUserRepository)
 
     await expect(async () => {
       await loginUseCase.execute({
@@ -60,7 +60,7 @@ describe('Login use case', () => {
       password: 'V4lidPassword'
     }
     await createUserUseCase.execute(userPayload)
-    const loginUseCase = new Login(fakeRepository)
+    const loginUseCase = new Login(fakeUserRepository)
 
     await expect(async () => {
       await loginUseCase.execute({

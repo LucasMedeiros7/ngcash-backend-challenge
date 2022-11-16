@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "ts-node-dev --poll --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "test": "jest",
+    "test": "jest --forceExit --detectOpenHandles --no-cache --maxWorkers=1",
     "test:watch": "jest --watchAll",
     "lint": "eslint --fix --ext",
     "lint-staged": "lint-staged"

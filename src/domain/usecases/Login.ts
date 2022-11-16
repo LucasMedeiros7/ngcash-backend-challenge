@@ -15,7 +15,7 @@ export class Login {
   async execute ({ username, password }: input): Promise<{ accessToken: string }> {
     const user = await this.userRepository.listByUsername(username)
 
-    if (user == null) {
+    if (user === null) {
       throw new Error('Não existe uma conta com esse username')
     }
 

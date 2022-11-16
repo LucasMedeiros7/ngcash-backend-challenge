@@ -1,6 +1,6 @@
 import { LoginController } from '../controllers/LoginController'
 import { Login } from '../domain/usecases/Login'
-import { UserRepository } from '../infra/repositories/implementations/UserRepository'
+import { UserRepository } from '../infra/repositories/UserRepository'
 
 export function makeLoginController (): LoginController {
   const userRepository = new UserRepository()
