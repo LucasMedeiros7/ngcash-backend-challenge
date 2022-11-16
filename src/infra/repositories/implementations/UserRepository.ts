@@ -1,5 +1,5 @@
-import { Account } from '../../../models/account/Account'
-import { User } from '../../../models/user/User'
+import { Account } from '../../../domain/models/account/Account'
+import { User } from '../../../domain/models/user/User'
 import { IUserRepository } from '../IUserRepository'
 import { prisma } from '../../db/database'
 

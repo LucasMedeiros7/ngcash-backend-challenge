@@ -1,5 +1,5 @@
-import { Account } from '../../models/account/Account'
-import { User } from '../../models/user/User'
+import { Account } from '../../domain/models/account/Account'
+import { User } from '../../domain/models/user/User'
 
 export interface IUserRepository {
   create: (userData: User, accountData: Account) => Promise<void>

@@ -2,7 +2,7 @@ import { validate } from 'uuid'
 import bcrypt from 'bcrypt'
 import { User } from '../../models/user/User'
 import { CreateUser } from './CreateUser'
-import { IUserRepository } from '../../infra/repositories/IUserRepository'
+import { IUserRepository } from '../../../infra/repositories/IUserRepository'
 
 class FakeRepository implements IUserRepository {
   users: User[]

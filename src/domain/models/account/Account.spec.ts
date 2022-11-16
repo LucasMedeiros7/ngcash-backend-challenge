@@ -1,5 +1,5 @@
 import { validate } from 'uuid'
-import { convertToBRLFormat } from '../../utils/convertToBRLFormat'
+import { convertToBRLFormat } from '../../../utils/convertToBRLFormat'
 import { Account } from './Account'
 
 describe('Create account model', () => {
