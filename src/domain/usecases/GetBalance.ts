@@ -6,8 +6,8 @@ import {
 class GetBalance {
   constructor (private readonly userRepository: IUserRepository) { }
 
-  async execute (username: string): Promise<CurrentBalance> {
-    const currentBalance = await this.userRepository.getBalanceByUsername(username)
+  async execute (userId: string): Promise<CurrentBalance> {
+    const currentBalance = await this.userRepository.getBalanceByUserId(userId)
     if (currentBalance == null) {
       throw new Error('Usuário não existe')
     }

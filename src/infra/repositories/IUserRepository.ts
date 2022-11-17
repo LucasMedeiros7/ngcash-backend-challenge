@@ -9,5 +9,5 @@ export interface CurrentBalance {
 export interface IUserRepository {
   create: (userData: User, accountData: Account) => Promise<void>
   listByUsername: (username: string) => Promise<User | null>
-  getBalanceByUsername: (username: string) => Promise<CurrentBalance | null>
+  getBalanceByUserId: (userId: string) => Promise<CurrentBalance | null>
 }

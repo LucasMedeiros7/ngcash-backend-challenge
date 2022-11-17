@@ -26,7 +26,7 @@ export class Login {
     }
 
     const secret = process.env.ACCESS_TOKEN_SECRET as string
-    const token = jwt.sign({ username: user.username }, secret, { expiresIn: '24h' })
+    const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '24h' })
 
     return { accessToken: token }
   }

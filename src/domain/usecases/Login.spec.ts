@@ -20,7 +20,7 @@ describe('Login use case', () => {
       username: 'fakename',
       password: 'V4lidPassword'
     }
-    await createUserUseCase.execute(userPayload)
+    const user = await createUserUseCase.execute(userPayload)
     const loginUseCase = new Login(fakeUserRepository)
 
     const { accessToken } = await loginUseCase.execute(userPayload)
@@ -30,7 +30,7 @@ describe('Login use case', () => {
 
     expect(token).toHaveProperty('iat')
     expect(token).toHaveProperty('exp')
-    expect(token.username).toBe('fakename')
+    expect(token.userId).toBe(user.id)
   })
 
   it('Deve retornar um erro caso a senha esteja errada', async () => {

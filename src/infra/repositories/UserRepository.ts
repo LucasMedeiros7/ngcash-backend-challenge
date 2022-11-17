@@ -23,9 +23,9 @@ class UserRepository implements IUserRepository {
     return user
   }
 
-  async getBalanceByUsername (username: string): Promise<CurrentBalance | null> {
+  async getBalanceByUserId (userId: string): Promise<CurrentBalance | null> {
     const user = await prisma.user.findFirst({
-      where: { username },
+      where: { id: userId },
       include: { account: true }
     })
     if (user == null) return null

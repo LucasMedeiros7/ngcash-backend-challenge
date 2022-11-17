@@ -21,8 +21,8 @@ class FakeUserRepository implements IUserRepository {
     return user
   }
 
-  async getBalanceByUsername (username: string): Promise<CurrentBalance | null> {
-    const user = this.users.find(user => user.username === username)
+  async getBalanceByUserId (userId: string): Promise<CurrentBalance | null> {
+    const user = this.users.find(user => user.id === userId)
     const account = this.accounts.find(account => account.id === user?.accountId)
     if ((user == null) || (account == null)) return null
     return {
