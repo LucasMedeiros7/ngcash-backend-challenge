@@ -5,7 +5,7 @@ import { User } from '../models/User'
 import { GetBalance } from './GetBalance'
 import { FakeTransactionRepository } from '../../infra/repositories/in-memory/FakeTransactionRepository'
 
-describe('Transfer use case', () => {
+describe('Transaction use case', () => {
   let fakeUserRepository: FakeUserRepository
   let createUserUseCase: CreateUser
   let getBalanceUseCase: GetBalance
