@@ -6,8 +6,21 @@ export interface CurrentBalance {
   balance: number
 }
 
+export interface PerformTransactionInput {
+  debited: {
+    accountId: string
+    value: number
+  }
+  credited: {
+    accountId: string
+    value: number
+  }
+}
+
 export interface IUserRepository {
   create: (userData: User, accountData: Account) => Promise<void>
   listByUsername: (username: string) => Promise<User | null>
-  getBalanceByUserId: (userId: string) => Promise<CurrentBalance | null>
+  getBalanceByUserId: (userId: string) => Promise<CurrentBalance>
+  listByAccountId: (accountId: string) => Promise<User | null>
+  performTransaction: ({ debited, credited }: PerformTransactionInput) => Promise<void>
 }

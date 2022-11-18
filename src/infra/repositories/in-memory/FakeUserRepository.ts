@@ -1,5 +1,6 @@
-import { Account, User } from '@prisma/client'
-import { CurrentBalance, IUserRepository } from '../IUserRepository'
+import { Account } from '../../../domain/models/Account'
+import { User } from '../../../domain/models/User'
+import { CurrentBalance, IUserRepository, PerformTransactionInput } from '../IUserRepository'
 
 class FakeUserRepository implements IUserRepository {
   users: User[]
@@ -8,6 +9,12 @@ class FakeUserRepository implements IUserRepository {
   constructor () {
     this.users = []
     this.accounts = []
+  }
+
+  async listByAccountId (accountId: string): Promise<User | null> {
+    const user = this.users.find((user) => user.accountId === accountId)
+    if (user == null) return null
+    return user
   }
 
   async create (userData: User, accountData: Account): Promise<void> {
@@ -21,10 +28,16 @@ class FakeUserRepository implements IUserRepository {
     return user
   }
 
-  async getBalanceByUserId (userId: string): Promise<CurrentBalance | null> {
-    const user = this.users.find(user => user.id === userId)
-    const account = this.accounts.find(account => account.id === user?.accountId)
-    if ((user == null) || (account == null)) return null
+  async performTransaction ({ debited, credited }: PerformTransactionInput): Promise<void> {
+    const debitedAccount = this.accounts.find(account => account.id === debited.accountId) as Account
+    const creditedAccount = this.accounts.find(account => account.id === credited.accountId) as Account
+    debitedAccount.balance = debited.value
+    creditedAccount.balance = credited.value
+  }
+
+  async getBalanceByUserId (userId: string): Promise<CurrentBalance> {
+    const user = this.users.find(user => user.id === userId) as User
+    const account = this.accounts.find(account => account.id === user.accountId) as Account
     return {
       username: user.username,
       balance: account.balance

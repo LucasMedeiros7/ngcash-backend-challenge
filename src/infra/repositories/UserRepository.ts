@@ -1,9 +1,14 @@
 import { Account } from '../../domain/models/Account'
 import { User } from '../../domain/models/User'
-import { CurrentBalance, IUserRepository } from './IUserRepository'
+import { CurrentBalance, IUserRepository, PerformTransactionInput } from './IUserRepository'
 import { prisma } from '../db/database'
 
 class UserRepository implements IUserRepository {
+  async listByAccountId (accountId: string): Promise<User | null> {
+    const user = await prisma.user.findFirst({ where: { accountId } })
+    return user
+  }
+
   async create (userData: User, accountData: Account): Promise<void> {
     const { id, username, password } = userData
     await prisma.user.create({
@@ -23,15 +28,16 @@ class UserRepository implements IUserRepository {
     return user
   }
 
-  async getBalanceByUserId (userId: string): Promise<CurrentBalance | null> {
-    const user = await prisma.user.findFirst({
-      where: { id: userId },
-      include: { account: true }
-    })
-    if (user == null) return null
+  async performTransaction ({ debited, credited }: PerformTransactionInput): Promise<void> {
+    throw new Error('Implement this method')
+  }
+
+  async getBalanceByUserId (userId: string): Promise<CurrentBalance> {
+    const user = await prisma.user.findFirst({ where: { id: userId } }) as User
+    const { balance } = await prisma.account.findFirst({ where: { id: user.accountId } }) as Account
     return {
       username: user.username,
-      balance: user.account.balance
+      balance
     }
   }
 }
