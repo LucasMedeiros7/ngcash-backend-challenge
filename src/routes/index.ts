@@ -7,6 +7,6 @@ import { userRoutes } from './user.routes'
 const routes = Router()
 routes.use('/users', userRoutes)
 routes.use('/login', loginRoutes)
-routes.use('/transaction', authMiddleware, transactionRoutes)
+routes.use('/transactions', authMiddleware, transactionRoutes)
 
 export { routes }

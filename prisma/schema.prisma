@@ -32,8 +32,8 @@ model Account {
 
 model Transaction {
   id                String   @id
-  debitedAccountId  String?  @unique
-  creditedAccountId String?  @unique
+  debitedAccountId  String?
+  creditedAccountId String?
   value             Int
   createdAt         DateTime
 

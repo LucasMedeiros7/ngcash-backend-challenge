@@ -5,7 +5,7 @@ class ListTransactions {
   constructor (private readonly transactionRepository: ITransactionRepository) { }
 
   async execute (accountId: string): Promise<Transaction[]> {
-    const transactions = await this.transactionRepository.list(accountId)
+    const transactions = await this.transactionRepository.listByAccountId(accountId)
     return transactions
   }
 }

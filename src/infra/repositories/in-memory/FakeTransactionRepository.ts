@@ -12,7 +12,7 @@ export class FakeTransactionRepository implements ITransactionRepository {
     this.transactions.push(transaction)
   }
 
-  async list (accountId: string): Promise<Transaction[]> {
+  async listByAccountId (accountId: string): Promise<Transaction[]> {
     const transactions = this.transactions.filter(({ creditedAccountId, debitedAccountId }) => {
       return creditedAccountId === accountId || debitedAccountId === accountId
     })

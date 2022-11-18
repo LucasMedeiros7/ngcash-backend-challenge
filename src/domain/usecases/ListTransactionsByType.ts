@@ -10,7 +10,7 @@ class ListTransactionsByType {
   constructor (private readonly transactionsRepository: ITransactionRepository) { }
 
   async execute ({ accountId, type }: input): Promise<Transaction[]> {
-    const allTransactions = await this.transactionsRepository.list(accountId)
+    const allTransactions = await this.transactionsRepository.listByAccountId(accountId)
 
     if (type === 'cash-in') {
       const cashInTransactions = allTransactions.filter(

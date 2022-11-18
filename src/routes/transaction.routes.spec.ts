@@ -2,13 +2,14 @@ import request from 'supertest'
 import { app } from '../'
 import { prisma } from '../infra/db/database'
 
-describe('[POST] /users', () => {
+describe('[POST] /transactions', () => {
   let debitedUser: request.Response
   let creditedUser: request.Response
 
   beforeEach(async () => {
     await prisma.user.deleteMany()
     await prisma.account.deleteMany()
+    await prisma.transaction.deleteMany()
 
     debitedUser = await request(app).post('/users').send({
       username: 'debitedUser',
@@ -24,6 +25,7 @@ describe('[POST] /users', () => {
   afterAll(async () => {
     await prisma.user.deleteMany()
     await prisma.account.deleteMany()
+    await prisma.transaction.deleteMany()
   })
 
   it('Deve realizar uma transferência e debitar o valor correto da conta de origem', async () => {
@@ -33,7 +35,7 @@ describe('[POST] /users', () => {
     })
 
     await request(app)
-      .post('/transaction')
+      .post('/transactions')
       .set({
         Authorization: `Bearer ${loginResponse.body.accessToken as string}`
       })
@@ -60,7 +62,7 @@ describe('[POST] /users', () => {
     })
 
     await request(app)
-      .post('/transaction')
+      .post('/transactions')
       .set({
         Authorization: `Bearer ${userDebitedLoginResponse.body.accessToken as string}`
       })
@@ -92,7 +94,7 @@ describe('[POST] /users', () => {
     })
 
     await request(app)
-      .post('/transaction')
+      .post('/transactions')
       .set({
         Authorization: `Bearer ${userDebitedLoginResponse.body.accessToken as string}`
       })
@@ -105,7 +107,7 @@ describe('[POST] /users', () => {
 
   it('Deve retornar 403 caso o usuário não esteja logado', async () => {
     await request(app)
-      .post('/transaction')
+      .post('/transactions')
       .set({
         Authorization: 'Bearer invalidtoken'
       })
@@ -114,5 +116,70 @@ describe('[POST] /users', () => {
         value: 15000 // = R$150,00
       })
       .expect(403)
+  })
+})
+
+describe('[GET] /transactions', () => {
+  let debitedUser: request.Response
+  let creditedUser: request.Response
+
+  beforeEach(async () => {
+    await prisma.user.deleteMany()
+    await prisma.account.deleteMany()
+    await prisma.transaction.deleteMany()
+
+    debitedUser = await request(app).post('/users').send({
+      username: 'debitedUser',
+      password: 'V4lidPassword'
+    })
+
+    creditedUser = await request(app).post('/users').send({
+      username: 'creditedUser',
+      password: 'V4lidPassword'
+    })
+  })
+
+  afterAll(async () => {
+    await prisma.user.deleteMany()
+    await prisma.account.deleteMany()
+    await prisma.transaction.deleteMany()
+  })
+
+  it('Deve listar todas as transferências', async () => {
+    const loginResponse = await request(app).post('/login').send({
+      username: debitedUser.body.username,
+      password: 'V4lidPassword'
+    })
+
+    await request(app)
+      .post('/transactions')
+      .set({
+        Authorization: `Bearer ${loginResponse.body.accessToken as string}`
+      })
+      .send({
+        accountDestinationId: creditedUser.body.accountId,
+        value: 1000 // = R$10,00
+      })
+      .expect(201)
+
+    await request(app)
+      .post('/transactions')
+      .set({
+        Authorization: `Bearer ${loginResponse.body.accessToken as string}`
+      })
+      .send({
+        accountDestinationId: creditedUser.body.accountId,
+        value: 1500 // = R$15,00
+      })
+      .expect(201)
+
+    const allTransactions = await request(app)
+      .get('/transactions')
+      .set({
+        Authorization: `Bearer ${loginResponse.body.accessToken as string}`
+      })
+      .expect(200)
+
+    expect(allTransactions.body).toHaveLength(2)
   })
 })
