@@ -8,7 +8,7 @@ interface input {
   value: number
 }
 
-class Transfer {
+class PerformTransaction {
   constructor (
     private readonly userRepository: IUserRepository,
     private readonly transactionRepository: ITransactionRepository
@@ -55,4 +55,4 @@ class Transfer {
   }
 }
 
-export { Transfer }
+export { PerformTransaction }

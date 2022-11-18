@@ -1,6 +1,6 @@
 import { CreateUser } from './CreateUser'
 import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
-import { Transfer } from './Transfer'
+import { PerformTransaction } from './PerformTransaction'
 import { User } from '../models/User'
 import { GetBalance } from './GetBalance'
 import { FakeTransactionRepository } from '../../infra/repositories/in-memory/FakeTransactionRepository'
@@ -27,7 +27,7 @@ describe('Transfer use case', () => {
 
   it('Deve realizar uma transferência', async () => {
     const fakeTransactionRepository = new FakeTransactionRepository()
-    const transferUseCase = new Transfer(
+    const performTransactionUseCase = new PerformTransaction(
       fakeUserRepository,
       fakeTransactionRepository
     )
@@ -35,7 +35,7 @@ describe('Transfer use case', () => {
     const debitedUserAccount = (await fakeUserRepository.listByUsername('debitedUser')) as User
     const creditedUserAccountId = (await fakeUserRepository.listByUsername('creditedUser')) as User
 
-    const transaction = await transferUseCase.execute({
+    const transaction = await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
       creditedAccountId: creditedUserAccountId.accountId,
       value: 1500 // = R$15,00
@@ -53,7 +53,7 @@ describe('Transfer use case', () => {
 
   it('Deve retornar um erro quando o valor da transfêrencia for maior que o saldo atual', async () => {
     const fakeTransactionRepository = new FakeTransactionRepository()
-    const transferUseCase = new Transfer(
+    const performTransactionUseCase = new PerformTransaction(
       fakeUserRepository,
       fakeTransactionRepository
     )
@@ -62,7 +62,7 @@ describe('Transfer use case', () => {
     const creditedUserAccountId = (await fakeUserRepository.listByUsername('creditedUser')) as User
 
     await expect(async () => {
-      await transferUseCase.execute({
+      await performTransactionUseCase.execute({
         debitedAccountId: debitedUserAccount.accountId,
         creditedAccountId: creditedUserAccountId.accountId,
         value: 15000 // = R$150,00
@@ -72,7 +72,7 @@ describe('Transfer use case', () => {
 
   it('Deve retornar um erro quando a a conta de destino for igual a conta de origem', async () => {
     const fakeTransactionRepository = new FakeTransactionRepository()
-    const transferUseCase = new Transfer(
+    const performTransactionUseCase = new PerformTransaction(
       fakeUserRepository,
       fakeTransactionRepository
     )
@@ -80,7 +80,7 @@ describe('Transfer use case', () => {
     const debitedUserAccount = (await fakeUserRepository.listByUsername('debitedUser')) as User
 
     await expect(async () => {
-      await transferUseCase.execute({
+      await performTransactionUseCase.execute({
         debitedAccountId: debitedUserAccount.accountId,
         creditedAccountId: debitedUserAccount.accountId,
         value: 100 // = R$150,00
@@ -90,7 +90,7 @@ describe('Transfer use case', () => {
 
   it('Deve retornar um erro quando o o valor a ser transferido for <= 0', async () => {
     const fakeTransactionRepository = new FakeTransactionRepository()
-    const transferUseCase = new Transfer(
+    const performTransactionUseCase = new PerformTransaction(
       fakeUserRepository,
       fakeTransactionRepository
     )
@@ -99,7 +99,7 @@ describe('Transfer use case', () => {
     const creditedUserAccountId = (await fakeUserRepository.listByUsername('creditedUser')) as User
 
     await expect(async () => {
-      await transferUseCase.execute({
+      await performTransactionUseCase.execute({
         debitedAccountId: debitedUserAccount.accountId,
         creditedAccountId: creditedUserAccountId.accountId,
         value: 0 // = R$150,00
