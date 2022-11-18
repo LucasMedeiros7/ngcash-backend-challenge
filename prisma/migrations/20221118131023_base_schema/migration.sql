@@ -21,7 +21,8 @@ CREATE TABLE "transactions" (
     "id" TEXT NOT NULL,
     "debitedAccountId" TEXT,
     "creditedAccountId" TEXT,
-    "amount" INTEGER NOT NULL,
+    "value" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "transactions_pkey" PRIMARY KEY ("id")
 );
