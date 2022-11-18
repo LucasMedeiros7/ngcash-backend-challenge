@@ -6,6 +6,16 @@ class TransactionRepository implements ITransactionRepository {
   async save (transaction: Transaction): Promise<void> {
     await prisma.transaction.create({ data: { ...transaction } })
   };
-}
 
+  async list (accountId: string): Promise<Transaction[]> {
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        creditedAccountId: accountId,
+        debitedAccountId: accountId
+      }
+    }) as Transaction[]
+
+    return transactions
+  }
+}
 export { TransactionRepository }
