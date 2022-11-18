@@ -39,7 +39,9 @@ class FakeUserRepository implements IUserRepository {
     const user = this.users.find(user => user.id === userId) as User
     const account = this.accounts.find(account => account.id === user.accountId) as Account
     return {
+      id: user.id,
       username: user.username,
+      accountId: user.accountId,
       balance: account.balance
     }
   }

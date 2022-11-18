@@ -29,24 +29,24 @@ class UserRepository implements IUserRepository {
   }
 
   async performTransaction ({ debited, credited }: PerformTransactionInput): Promise<void> {
-    Promise.all([
-      await prisma.account.update({
-        where: { id: debited.accountId },
-        data: { balance: debited.value }
-      }),
-      await prisma.account.update({
-        where: { id: credited.accountId },
-        data: { balance: credited.value }
-      })
-    ]).catch(console.error)
+    await prisma.account.update({
+      where: { id: debited.accountId },
+      data: { balance: debited.value }
+    })
+    await prisma.account.update({
+      where: { id: credited.accountId },
+      data: { balance: credited.value }
+    })
   }
 
   async getBalanceByUserId (userId: string): Promise<CurrentBalance> {
     const user = await prisma.user.findFirst({ where: { id: userId } }) as User
-    const { balance } = await prisma.account.findFirst({ where: { id: user.accountId } }) as Account
+    const account = await prisma.account.findFirst({ where: { id: user.accountId } }) as Account
     return {
+      id: user.id,
       username: user.username,
-      balance
+      accountId: user.accountId,
+      balance: account.balance
     }
   }
 }

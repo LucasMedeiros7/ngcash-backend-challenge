@@ -45,6 +45,17 @@ describe('[POST] /transactions', () => {
       })
       .expect(201)
 
+    await request(app)
+      .post('/transactions')
+      .set({
+        Authorization: `Bearer ${loginResponse.body.accessToken as string}`
+      })
+      .send({
+        accountDestinationId: creditedUser.body.accountId,
+        value: 1500 // = R$10,00
+      })
+      .expect(201)
+
     const userDebitedResponse = await request(app)
       .get('/users/balance')
       .set({
@@ -52,7 +63,7 @@ describe('[POST] /transactions', () => {
       })
       .expect(200)
 
-    expect(userDebitedResponse.body.balance).toBe('R$90,00')
+    expect(userDebitedResponse.body.balance).toBe('R$75,00')
   })
 
   it('Deve realizar uma transferência e creditar o valor correto na conta de destino', async () => {

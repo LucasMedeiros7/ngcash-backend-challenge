@@ -30,9 +30,9 @@ class PerformTransaction {
     transaction.create({ creditedAccountId, debitedAccountId, value })
 
     const { balance: debitedAccountBalance } =
-      await this.userRepository.getBalanceByUserId(creditedUserAccount.id)
-    const { balance: creditedAccountBalance } =
       await this.userRepository.getBalanceByUserId(debitedUserAccount.id)
+    const { balance: creditedAccountBalance } =
+      await this.userRepository.getBalanceByUserId(creditedUserAccount.id)
 
     if (debitedAccountBalance < value) {
       throw new Error('Saldo insuficiente')

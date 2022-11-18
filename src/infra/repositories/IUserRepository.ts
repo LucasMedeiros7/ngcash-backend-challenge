@@ -2,8 +2,10 @@ import { Account } from '../../domain/models/Account'
 import { User } from '../../domain/models/User'
 
 export interface CurrentBalance {
+  id: string
   username: string
   balance: number
+  accountId: string
 }
 
 export interface PerformTransactionInput {

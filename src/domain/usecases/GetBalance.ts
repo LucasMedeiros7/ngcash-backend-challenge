@@ -4,9 +4,9 @@ import {
 } from '../../infra/repositories/IUserRepository'
 
 class GetBalance {
-  constructor (private readonly userRepository: IUserRepository) { }
+  constructor(private readonly userRepository: IUserRepository) { }
 
-  async execute (userId: string): Promise<CurrentBalance> {
+  async execute(userId: string): Promise<CurrentBalance> {
     const currentBalance = await this.userRepository.getBalanceByUserId(userId)
     if (currentBalance == null) {
       throw new Error('Usuário não existe')
