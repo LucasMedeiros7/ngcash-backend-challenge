@@ -1,7 +1,7 @@
-import { Account } from '../../domain/models/Account'
-import { User } from '../../domain/models/User'
-import { CurrentBalance, IUserRepository, PerformTransactionInput } from './IUserRepository'
-import { prisma } from '../db/database'
+import { Account } from '../../../domain/models/Account'
+import { User } from '../../../domain/models/User'
+import { CurrentBalance, IUserRepository, PerformTransactionInput } from '../IUserRepository'
+import { prisma } from '../../db/database'
 
 class UserRepository implements IUserRepository {
   async listByAccountId (accountId: string): Promise<User | null> {
@@ -20,7 +20,7 @@ class UserRepository implements IUserRepository {
           create: { ...accountData }
         }
       }
-    })
+    }).catch(console.error)
   }
 
   async listByUsername (username: string): Promise<User | null> {
@@ -29,7 +29,16 @@ class UserRepository implements IUserRepository {
   }
 
   async performTransaction ({ debited, credited }: PerformTransactionInput): Promise<void> {
-    throw new Error('Implement this method')
+    Promise.all([
+      await prisma.account.update({
+        where: { id: debited.accountId },
+        data: { balance: debited.value }
+      }),
+      await prisma.account.update({
+        where: { id: credited.accountId },
+        data: { balance: credited.value }
+      })
+    ]).catch(console.error)
   }
 
   async getBalanceByUserId (userId: string): Promise<CurrentBalance> {

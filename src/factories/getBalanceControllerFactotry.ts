@@ -1,6 +1,6 @@
 import { GetBalanceController } from '../controllers/GetBalanceController'
 import { GetBalance } from '../domain/usecases/GetBalance'
-import { UserRepository } from '../infra/repositories/UserRepository'
+import { UserRepository } from '../infra/repositories/implementations/UserRepository'
 
 export function makeGetBalanceController (): GetBalanceController {
   const userRepository = new UserRepository()

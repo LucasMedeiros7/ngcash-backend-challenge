@@ -5,6 +5,7 @@ dotenv.config()
 
 export interface TokenPayload {
   userId: string
+  accountId: string
   iat: number
   exp: number
 }
@@ -19,9 +20,12 @@ export function authMiddleware (
   try {
     const secret = process.env.ACCESS_TOKEN_SECRET as string
     const data = jwt.verify(token, secret)
-    const { userId } = data as TokenPayload
+    const { userId, accountId } = data as TokenPayload
 
-    request.userId = userId
+    request.user = {
+      id: userId,
+      accountId
+    }
     return next()
   } catch {
     response.status(403).json({ error: 'Usuário não autorizado' })

@@ -26,7 +26,6 @@ class PerformTransaction {
       const originOrDestination = (creditedUserAccount == null) ? 'destino' : 'origem'
       throw new Error(`Conta de ${originOrDestination} não existe`)
     }
-
     const transaction = new Transaction()
     transaction.create({ creditedAccountId, debitedAccountId, value })
 

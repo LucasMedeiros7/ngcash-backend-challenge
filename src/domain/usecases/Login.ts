@@ -25,8 +25,14 @@ export class Login {
       throw new Error('Senha inválida')
     }
 
-    const secret = process.env.ACCESS_TOKEN_SECRET as string
-    const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '24h' })
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        accountId: user.accountId
+      },
+      process.env.ACCESS_TOKEN_SECRET as string,
+      { expiresIn: '24h' }
+    )
 
     return { accessToken: token }
   }
