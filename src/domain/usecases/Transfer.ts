@@ -27,11 +27,8 @@ class Transfer {
       throw new Error(`Conta de ${originOrDestination} não existe`)
     }
 
-    const transaction = new Transaction({
-      creditedAccountId,
-      debitedAccountId,
-      value
-    })
+    const transaction = new Transaction()
+    transaction.create({ creditedAccountId, debitedAccountId, value })
 
     const { balance: debitedAccountBalance } =
       await this.userRepository.getBalanceByUserId(creditedUserAccount.id)

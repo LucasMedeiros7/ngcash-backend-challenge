@@ -3,7 +3,9 @@ import { Transaction } from './Transaction';
 
 describe('Create transaction model', () => {
   it('Should be able create an transaction', () => {
-    const transaction = new Transaction({
+    const transaction = new Transaction()
+
+    transaction.create({
       creditedAccountId: 'any_idDebited',
       debitedAccountId: 'any_idCredited',
       value: 10,
@@ -14,18 +16,26 @@ describe('Create transaction model', () => {
   });
 
   it('Should return an error when value <= 0', () => {
-    expect(new Transaction({
-      creditedAccountId: 'any_idDebited',
-      debitedAccountId: 'any_idCredited',
-      value: 0,
-    })).toThrowError();
+    const transaction = new Transaction()
+
+    expect(() => {
+      transaction.create({
+        creditedAccountId: 'any_idDebited',
+        debitedAccountId: 'any_idCredited',
+        value: 0,
+      })
+    }).toThrowError('Impossível realizar está transferência');
   });
 
   it('Should return an error when creditedAccountId is equal debitedAccountId', () => {
-    expect(new Transaction({
-      creditedAccountId: 'any_idDebited',
-      debitedAccountId: 'any_idDebited',
-      value: 10,
-    })).toThrowError();
+    const transaction = new Transaction()
+
+    expect(() => {
+      transaction.create({
+        creditedAccountId: 'any_idDebited',
+        debitedAccountId: 'any_idDebited',
+        value: 10,
+      })
+    }).toThrowError('Impossível realizar está transferência');
   });
 });

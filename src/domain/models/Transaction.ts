@@ -13,14 +13,17 @@ export class Transaction {
   value: number
   createdAt: Date
 
-  constructor ({ debitedAccountId, creditedAccountId, value }: input) {
+  constructor () {
+    this.id = uuidv4()
+    this.createdAt = new Date()
+  }
+
+  create ({ debitedAccountId, creditedAccountId, value }: input): void {
     if (debitedAccountId === creditedAccountId || value <= 0) {
       throw new Error('Impossível realizar está transferência')
     }
-    this.id = uuidv4()
     this.debitedAccountId = debitedAccountId
     this.creditedAccountId = creditedAccountId
     this.value = value
-    this.createdAt = new Date()
   }
 }
