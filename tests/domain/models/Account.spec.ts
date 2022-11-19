@@ -1,6 +1,6 @@
 import { validate } from 'uuid'
-import { convertToBRLFormat } from '../../utils/convertToBRLFormat'
-import { Account } from './Account'
+import { convertToBRLFormat } from '../../../src/utils/convertToBRLFormat'
+import { Account } from '../../../src/domain/models/Account'
 
 describe('Create account model', () => {
   it('Should be able create an account', () => {

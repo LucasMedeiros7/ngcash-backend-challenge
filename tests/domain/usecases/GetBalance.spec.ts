@@ -1,6 +1,6 @@
-import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
-import { CreateUser } from './CreateUser'
-import { GetBalance } from './GetBalance'
+import { FakeUserRepository } from '../../fakes/FakeUserRepository'
+import { CreateUser } from '../../../src/domain/usecases/CreateUser'
+import { GetBalance } from '../../../src/domain/usecases/GetBalance'
 
 describe('Get Balance Use Case', () => {
   let fakeUserRepository: FakeUserRepository

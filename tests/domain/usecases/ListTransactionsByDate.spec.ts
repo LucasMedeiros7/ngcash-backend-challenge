@@ -1,9 +1,9 @@
-import { CreateUser } from './CreateUser'
-import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
-import { PerformTransaction } from './PerformTransaction'
-import { User } from '../models/User'
-import { FakeTransactionRepository } from '../../infra/repositories/in-memory/FakeTransactionRepository'
-import { ListTransactionsByDate } from './ListTransactionsByDate'
+import { CreateUser } from '../../../src/domain/usecases/CreateUser'
+import { FakeUserRepository } from '../../fakes/FakeUserRepository'
+import { PerformTransaction } from '../../../src/domain/usecases/PerformTransaction'
+import { User } from '../../../src/domain/models/User'
+import { FakeTransactionRepository } from '../../fakes/FakeTransactionRepository'
+import { ListTransactionsByDate } from '../../../src/domain/usecases/ListTransactionsByDate'
 
 describe('List transactions by date use case', () => {
   let fakeUserRepository: FakeUserRepository

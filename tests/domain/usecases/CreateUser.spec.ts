@@ -1,7 +1,7 @@
 import { validate } from 'uuid'
 import bcrypt from 'bcrypt'
-import { CreateUser } from './CreateUser'
-import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
+import { CreateUser } from '../../../src/domain/usecases/CreateUser'
+import { FakeUserRepository } from '../../fakes/FakeUserRepository'
 
 describe('Create user usecase', () => {
   it('Deve criar um usuário e a senha deve ser criptogrfada', async () => {

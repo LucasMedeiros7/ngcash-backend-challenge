@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
-import { Login } from './Login'
-import { CreateUser } from './CreateUser'
-import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
-import { TokenPayload } from '../../middlewares/authMiddleware'
+import { Login } from '../../../src/domain/usecases/Login'
+import { CreateUser } from '../../../src/domain/usecases/CreateUser'
+import { FakeUserRepository } from '../../fakes/FakeUserRepository'
+import { TokenPayload } from '../../../src/middlewares/authMiddleware'
 import dotenv from 'dotenv'
 dotenv.config()
 

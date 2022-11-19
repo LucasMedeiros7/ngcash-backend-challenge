@@ -1,6 +1,6 @@
 import request from 'supertest'
-import { app } from '..'
-import { prisma } from '../infra/db/database'
+import { app } from '../../src'
+import { prisma } from '../../src/infra/db/database'
 
 beforeAll(async () => {
   await prisma.user.deleteMany()

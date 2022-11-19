@@ -1,6 +1,6 @@
 import { validate } from 'uuid'
-import { Account } from './Account'
-import { User } from './User'
+import { Account } from '../../../src/domain/models/Account'
+import { User } from '../../../src/domain/models/User'
 import bcrypt from 'bcrypt'
 
 describe('Create user model', () => {

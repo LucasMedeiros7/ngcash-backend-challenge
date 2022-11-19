@@ -1,9 +1,9 @@
-import { CreateUser } from './CreateUser'
-import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
-import { PerformTransaction } from './PerformTransaction'
-import { User } from '../models/User'
-import { GetBalance } from './GetBalance'
-import { FakeTransactionRepository } from '../../infra/repositories/in-memory/FakeTransactionRepository'
+import { CreateUser } from '../../../src/domain/usecases/CreateUser'
+import { FakeUserRepository } from '../../fakes/FakeUserRepository'
+import { PerformTransaction } from '../../../src/domain/usecases/PerformTransaction'
+import { User } from '../../../src/domain/models/User'
+import { GetBalance } from '../../../src/domain/usecases/GetBalance'
+import { FakeTransactionRepository } from '../../fakes/FakeTransactionRepository'
 
 describe('Transaction use case', () => {
   let fakeUserRepository: FakeUserRepository

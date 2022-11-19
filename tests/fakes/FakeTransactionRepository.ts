@@ -1,5 +1,5 @@
-import { Transaction } from '../../../domain/models/Transaction'
-import { ITransactionRepository } from '../ITransactionRepository'
+import { Transaction } from '../../src/domain/models/Transaction'
+import { ITransactionRepository } from '../../src/infra/repositories/ITransactionRepository'
 
 export class FakeTransactionRepository implements ITransactionRepository {
   transactions: Transaction[]

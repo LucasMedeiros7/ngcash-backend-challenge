@@ -1,10 +1,10 @@
-import { CreateUser } from './CreateUser'
-import { FakeUserRepository } from '../../infra/repositories/in-memory/FakeUserRepository'
-import { PerformTransaction } from './PerformTransaction'
-import { User } from '../models/User'
-import { FakeTransactionRepository } from '../../infra/repositories/in-memory/FakeTransactionRepository'
-import { ListTransactions } from './ListTransactions'
-import { ListTransactionsByType } from './ListTransactionsByType'
+import { CreateUser } from '../../../src/domain/usecases/CreateUser'
+import { FakeUserRepository } from '../../fakes/FakeUserRepository'
+import { PerformTransaction } from '../../../src/domain/usecases/PerformTransaction'
+import { User } from '../../../src/domain/models/User'
+import { FakeTransactionRepository } from '../../fakes/FakeTransactionRepository'
+import { ListTransactions } from '../../../src/domain/usecases/ListTransactions'
+import { ListTransactionsByType } from '../../../src/domain/usecases/ListTransactionsByType'
 
 describe('List transactions by type use case', () => {
   let fakeUserRepository: FakeUserRepository

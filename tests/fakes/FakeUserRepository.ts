@@ -1,6 +1,6 @@
-import { Account } from '../../../domain/models/Account'
-import { User } from '../../../domain/models/User'
-import { CurrentBalance, IUserRepository, PerformTransactionInput } from '../IUserRepository'
+import { Account } from '../../src/domain/models/Account'
+import { User } from '../../src/domain/models/User'
+import { IUserRepository, PerformTransactionInput, CurrentBalance } from '../../src/infra/repositories/IUserRepository'
 
 class FakeUserRepository implements IUserRepository {
   users: User[]
