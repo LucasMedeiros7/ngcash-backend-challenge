@@ -1,4 +1,4 @@
-import { validatePassword } from './validatePassword'
+import { validatePassword } from '../../src/utils/validatePassword'
 
 describe('Validate password', () => {
   it('Deve retornar true quando receber uma senha válida', () => {

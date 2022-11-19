@@ -1,4 +1,4 @@
-import { convertToBRLFormat } from './convertToBRLFormat'
+import { convertToBRLFormat } from '../../src/utils/convertToBRLFormat'
 
 describe('Convert to BRL format currency', () => {
   it('Deve formatar o valor inteiro para BRL', () => {
