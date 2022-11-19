@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  ngcash-postgres:
+    image: postgres
+    container_name: ngcash-postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=ngcash
+    volumes:
+      - pgdata:/data/postgres
