@@ -334,3 +334,60 @@ describe('[GET] /transactions', () => {
     expect(allTransactions.body).toHaveLength(2)
   })
 })
+
+describe('[GET] /transactions/?{date=day/month/year}', () => {
+  let debitedUser: request.Response
+  let creditedUser: request.Response
+
+  beforeEach(async () => {
+    debitedUser = await request(app).post('/users').send({
+      username: String(Math.random() * 100), // fakename
+      password: 'V4lidPassword'
+    })
+
+    creditedUser = await request(app).post('/users').send({
+      username: String(Math.random() * 100), // fakename
+      password: 'V4lidPassword'
+    })
+  })
+
+  it('Deve listar todas as por data', async () => {
+    const loginResponse = await request(app).post('/login').send({
+      username: debitedUser.body.username,
+      password: 'V4lidPassword'
+    })
+
+    await request(app)
+      .post('/transactions')
+      .set({
+        Authorization: `Bearer ${loginResponse.body.accessToken as string}`
+      })
+      .send({
+        accountDestinationId: creditedUser.body.accountId,
+        value: 1000 // = R$10,00
+      })
+      .expect(201)
+
+    await request(app)
+      .post('/transactions')
+      .set({
+        Authorization: `Bearer ${loginResponse.body.accessToken as string}`
+      })
+      .send({
+        accountDestinationId: creditedUser.body.accountId,
+        value: 1500 // = R$15,00
+      })
+      .expect(201)
+
+    const todayDate = new Date().toLocaleDateString()
+
+    const allTransactions = await request(app)
+      .get(`/transactions/?date=${todayDate}`)
+      .set({
+        Authorization: `Bearer ${loginResponse.body.accessToken as string}`
+      })
+      .expect(200)
+
+    expect(allTransactions.body).toHaveLength(2)
+  })
+})
