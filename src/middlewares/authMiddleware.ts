@@ -10,11 +10,7 @@ export interface TokenPayload {
   exp: number
 }
 
-export function authMiddleware (
-  request: Request,
-  response: Response,
-  next: NextFunction
-): void {
+export function authMiddleware (request: Request, response: Response, next: NextFunction): void {
   const authorization = request.headers.authorization as string
   const token = authorization.split(' ')[1]
   try {

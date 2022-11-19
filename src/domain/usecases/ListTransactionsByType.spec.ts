@@ -71,18 +71,18 @@ describe('List transactions by type use case', () => {
       value: 1500
     })
     await performTransactionUseCase.execute({
-      debitedAccountId: creditedUserAccountId.accountId,
-      creditedAccountId: debitedUserAccount.accountId,
+      debitedAccountId: debitedUserAccount.accountId,
+      creditedAccountId: creditedUserAccountId.accountId,
       value: 1500
     })
 
-    const allTransactions = await listTransactionsUseCase.execute(debitedUserAccount.accountId)
-    const cashOutTransactions = await listTransactionsByTypeUseCase.execute({
-      accountId: debitedUserAccount.accountId,
+    const allTransactions = await listTransactionsUseCase.execute(creditedUserAccountId.accountId)
+    const cashInTransactions = await listTransactionsByTypeUseCase.execute({
+      accountId: creditedUserAccountId.accountId,
       type: 'cash-in'
     })
 
-    expect(cashOutTransactions).toHaveLength(1)
+    expect(cashInTransactions).toHaveLength(2)
     expect(allTransactions).toHaveLength(2)
   })
 })

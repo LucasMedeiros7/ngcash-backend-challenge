@@ -18,7 +18,6 @@ class ListTransactionsByType {
       )
       return cashInTransactions
     }
-
     const cashOutTransactions = allTransactions.filter(
       (transaction) => transaction.debitedAccountId === accountId
     )

@@ -9,7 +9,8 @@
     "test": "jest --forceExit --detectOpenHandles --no-cache --maxWorkers=1",
     "test:watch": "jest --watchAll",
     "lint": "eslint --fix --ext",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "test:ci": "npm test -- --coverage"
   },
   "lint-staged": {
     "*.ts": [
