@@ -1,14 +1,12 @@
-version: '3.7'
+version: '3.1'
 
 services:
-  ngcash-postgres:
+  db:
     image: postgres
-    container_name: ngcash-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ng-cash
+      POSTGRES_USER: ng-cash
+      POSTGRES_PASSWORD: ng-cash
     ports:
       - 5432:5432
-    environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=ngcash
-    volumes:
-      - pgdata:/data/postgres
