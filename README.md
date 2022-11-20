@@ -13,42 +13,27 @@
 ```bash
 # Faça o clone do projeto
 $ git clone git@github.com:LucasMedeiros7/ngcash-backend-challenge.git
-```
 
-```bash
 # Entre na pasta do projeto
 $ cd ngcash-backend-challenge
-```
 
-```bash
 # Instale as dependências
 $ npm install
-```
 
-```bash
 # Suba o banco de dados da aplicação utilizando o docker-compose
 $ docker-compose up -d
-```
 
-```bash
-Aguarde o docker inicializar.
-
+# Aguarde o docker inicializar.
 # Altere o nome do arquivo ".env.example" para ".env" apenas
-```
 
-```bash
 # Rode as migrations para criar criar e popular as tabelas no banco de dados
 $ npm run migrate
-```
 
-```bash
 # Inicie o servidor
 $ npm run dev
 ```
 
 ### Aplicação vai estar rodando em http://localhost:3333
-
-<br/>
 
 ## Rotas da aplicação
 
@@ -91,7 +76,7 @@ Template para enviar os dados:<br>
 Precisa estar logado:Sim.<br>
 Template para enviar os dados:<br>
 
-```json
+```bash
 Content-type: application/json
 Authorization: Bearer <TOKEN JWT>
 
@@ -101,8 +86,6 @@ Authorization: Bearer <TOKEN JWT>
 }
 ```
 
-<br/>
-
 ### Rota para consultar o saldo atual da conta (Necessário que seja passado o token de autenticação)
 
 #### GET `/users/balance`
@@ -110,12 +93,10 @@ Authorization: Bearer <TOKEN JWT>
 Precisa estar logado: Sim.<br>
 Template para enviar os dados:<br>
 
-```json
+```bash
 Content-type: application/json
 Authorization: Bearer <TOKEN JWT>
 ```
-
-<br/>
 
 ### Rota para listar todas as transferências de cash-in e cash-out do usuário (Necessário que seja passado o token de autenticação)
 
@@ -124,12 +105,10 @@ Authorization: Bearer <TOKEN JWT>
 Precisa estar logado: Sim.<br>
 Template para enviar os dados:<br>
 
-```json
+```bash
 Content-type: application/json
 Authorization: Bearer <TOKEN JWT>
 ```
-
-<br/>
 
 ### Rota para listar transaferências de cash-in ou cash-out (Necessário que seja passado o token de autenticação)
 
@@ -138,12 +117,10 @@ Authorization: Bearer <TOKEN JWT>
 Precisa estar logado: Sim.<br>
 Template para enviar os dados:<br>
 
-```json
+```bash
 Content-type: application/json
 Authorization: Bearer <TOKEN JWT>
 ```
-
-<br/>
 
 ### Rota para listar transaferências por data (Necessário que seja passado o token de autenticação)
 
@@ -152,7 +129,7 @@ Authorization: Bearer <TOKEN JWT>
 Precisa estar logado: Sim.<br>
 Template para enviar os dados:<br>
 
-```json
+```bash
 Content-type: application/json
 Authorization: Bearer <TOKEN JWT>
 ```
