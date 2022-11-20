@@ -1,7 +1,7 @@
 # NG Cash - Backend Challenge
 
-> API desenvolvida para o desafio do processo seletivo para vaga de backend na NG.CASH.
-> Desenvolvimento de um API para a tranferência entre contas de um banco digital utilizando typescript, jest, prisma e docker rodando um banco de dados Postgres
+> API desenvolvida para o desafio do processo seletivo para vaga de backend na NG.CASH. <br/>
+> Desenvolvimento de uma API para a tranferência entre contas de um banco digital utilizando typescript, jest, prisma e docker rodando um banco de dados Postgres
 
 ## Pré-requisitos para rodar a aplicação
 
