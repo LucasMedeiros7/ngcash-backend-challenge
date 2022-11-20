@@ -37,7 +37,7 @@ describe('Transaction use case', () => {
 
     const transaction = await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: creditedUserAccountId.accountId,
+      creditedUsername: 'creditedUser',
       value: 1500 // = R$15,00
     })
 
@@ -53,18 +53,13 @@ describe('Transaction use case', () => {
 
   it('Deve retornar um erro quando o valor da transfêrencia for maior que o saldo atual', async () => {
     const fakeTransactionRepository = new FakeTransactionRepository()
-    const performTransactionUseCase = new PerformTransaction(
-      fakeUserRepository,
-      fakeTransactionRepository
-    )
-
+    const performTransactionUseCase = new PerformTransaction(fakeUserRepository, fakeTransactionRepository)
     const debitedUserAccount = (await fakeUserRepository.listByUsername('debitedUser')) as User
-    const creditedUserAccountId = (await fakeUserRepository.listByUsername('creditedUser')) as User
 
     await expect(async () => {
       await performTransactionUseCase.execute({
         debitedAccountId: debitedUserAccount.accountId,
-        creditedAccountId: creditedUserAccountId.accountId,
+        creditedUsername: 'creditedUser',
         value: 15000 // = R$150,00
       })
     }).rejects.toThrowError('Saldo insuficiente')
@@ -82,10 +77,10 @@ describe('Transaction use case', () => {
     await expect(async () => {
       await performTransactionUseCase.execute({
         debitedAccountId: debitedUserAccount.accountId,
-        creditedAccountId: debitedUserAccount.accountId,
+        creditedUsername: 'debitedUser',
         value: 100 // = R$150,00
       })
-    }).rejects.toThrowError('Impossível realizar está transferência')
+    }).rejects.toThrowError('Conta que recebe o cash-in não pode ser igual a conta que faz o cash-out')
   })
 
   it('Deve retornar um erro quando o o valor a ser transferido for <= 0', async () => {
@@ -96,14 +91,13 @@ describe('Transaction use case', () => {
     )
 
     const debitedUserAccount = (await fakeUserRepository.listByUsername('debitedUser')) as User
-    const creditedUserAccountId = (await fakeUserRepository.listByUsername('creditedUser')) as User
 
     await expect(async () => {
       await performTransactionUseCase.execute({
         debitedAccountId: debitedUserAccount.accountId,
-        creditedAccountId: creditedUserAccountId.accountId,
+        creditedUsername: 'creditedUser',
         value: 0 // = R$150,00
       })
-    }).rejects.toThrowError('Impossível realizar está transferência')
+    }).rejects.toThrowError('Valor da transferência deve ser maior que 0')
   })
 })

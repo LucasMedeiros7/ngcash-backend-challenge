@@ -35,17 +35,17 @@ describe('List transactions by type use case', () => {
 
     await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: creditedUserAccountId.accountId,
-      value: 1500
-    })
-    await performTransactionUseCase.execute({
-      debitedAccountId: creditedUserAccountId.accountId,
-      creditedAccountId: debitedUserAccount.accountId,
+      creditedUsername: 'creditedUser',
       value: 1500
     })
     await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: creditedUserAccountId.accountId,
+      creditedUsername: 'creditedUser',
+      value: 1500
+    })
+    await performTransactionUseCase.execute({
+      debitedAccountId: creditedUserAccountId.accountId,
+      creditedUsername: 'debitedUser',
       value: 1500
     })
 
@@ -67,12 +67,12 @@ describe('List transactions by type use case', () => {
 
     await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: creditedUserAccountId.accountId,
+      creditedUsername: 'creditedUser',
       value: 1500
     })
     await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: creditedUserAccountId.accountId,
+      creditedUsername: 'creditedUser',
       value: 1500
     })
 

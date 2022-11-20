@@ -3,17 +3,17 @@ import { PerformTransaction } from '../domain/usecases/PerformTransaction'
 import { convertToBRLFormat } from '../utils/convertToBRLFormat'
 
 export class TransactionController {
-  constructor (private readonly performTransactionUseCase: PerformTransaction) { }
+  constructor(private readonly performTransactionUseCase: PerformTransaction) { }
 
-  async handle (request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { accountId } = request.user
-    const { accountDestinationId, value } = request.body
+    const { username, value } = request.body
 
     try {
       const transaction = await this.performTransactionUseCase.execute({
         debitedAccountId: accountId,
-        creditedAccountId: accountDestinationId,
-        value
+        creditedUsername: username,
+        value: value
       })
       return response.status(201).json({
         ...transaction,

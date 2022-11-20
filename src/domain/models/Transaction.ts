@@ -19,9 +19,9 @@ export class Transaction {
   }
 
   create ({ debitedAccountId, creditedAccountId, value }: input): void {
-    if (debitedAccountId === creditedAccountId || value <= 0) {
-      throw new Error('Impossível realizar está transferência')
-    }
+    if (debitedAccountId === creditedAccountId) throw new Error('Conta que recebe o cash-in não pode ser igual a conta que faz o cash-out')
+    if (value <= 0) throw new Error('Valor da transferência deve ser maior que 0')
+
     this.debitedAccountId = debitedAccountId
     this.creditedAccountId = creditedAccountId
     this.value = value

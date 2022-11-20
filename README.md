@@ -46,7 +46,7 @@ Template para enviar os dados:<br/>
 
 ```json
 {
-  "username": "johndoe",
+  "username": "peterpark",
   "password": "S3nhaforte"
 }
 ```
@@ -62,7 +62,7 @@ Template para enviar os dados:<br>
 
 ```json
 {
-  "username": "johndoe",
+  "username": "peterpark",
   "password": "S3nhaforte"
 }
 ```
@@ -81,7 +81,7 @@ Content-type: application/json
 Authorization: Bearer <TOKEN JWT>
 
 {
-  "accountDestinationId": "dk2k213jl23kddddfffitFT",
+  "username": "maryjane",
   "value": 1000,
 }
 ```

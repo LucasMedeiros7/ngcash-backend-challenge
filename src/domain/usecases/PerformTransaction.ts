@@ -4,7 +4,7 @@ import { Transaction } from '../models/Transaction'
 
 interface input {
   debitedAccountId: string
-  creditedAccountId: string
+  creditedUsername: string
   value: number
 }
 
@@ -14,9 +14,9 @@ class PerformTransaction {
     private readonly transactionRepository: ITransactionRepository
   ) { }
 
-  async execute ({ debitedAccountId, creditedAccountId, value }: input): Promise<Transaction> {
-    const creditedUserAccount = await this.userRepository.listByAccountId(
-      creditedAccountId
+  async execute ({ debitedAccountId, creditedUsername, value }: input): Promise<Transaction> {
+    const creditedUserAccount = await this.userRepository.listByUsername(
+      creditedUsername
     )
     const debitedUserAccount = await this.userRepository.listByAccountId(
       debitedAccountId
@@ -27,7 +27,7 @@ class PerformTransaction {
       throw new Error(`Conta de ${originOrDestination} não existe`)
     }
     const transaction = new Transaction()
-    transaction.create({ creditedAccountId, debitedAccountId, value })
+    transaction.create({ creditedAccountId: creditedUserAccount.accountId, debitedAccountId, value })
 
     const { balance: debitedAccountBalance } =
       await this.userRepository.getBalanceByUserId(debitedUserAccount.id)
@@ -44,7 +44,7 @@ class PerformTransaction {
         value: debitedAccountBalance - value
       },
       credited: {
-        accountId: creditedAccountId,
+        accountId: creditedUserAccount.accountId,
         value: creditedAccountBalance + value
       }
     })

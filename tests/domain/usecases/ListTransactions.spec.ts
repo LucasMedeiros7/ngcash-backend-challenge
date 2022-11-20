@@ -32,21 +32,21 @@ describe('List transactions use case', () => {
 
     await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: creditedUserAccountId.accountId,
+      creditedUsername: 'creditedUser',
       value: 1500
     })
     await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: creditedUserAccountId.accountId,
+      creditedUsername: 'creditedUser',
       value: 1500
     })
     const otherUser = await createUserUseCase.execute({
-      username: 'forTestTransfer',
+      username: 'otherUser',
       password: 'V4lidPassword'
     })
     await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: otherUser.accountId,
+      creditedUsername: 'otherUser',
       value: 1500
     })
 

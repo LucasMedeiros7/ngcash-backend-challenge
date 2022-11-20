@@ -190,7 +190,7 @@ describe('[POST] /transactions', () => {
         Authorization: `Bearer ${loginResponse.body.accessToken as string}`
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 1000 // = R$10,00
       }).expect(201)
 
@@ -200,7 +200,7 @@ describe('[POST] /transactions', () => {
         Authorization: `Bearer ${loginResponse.body.accessToken as string}`
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 1500 // = R$10,00
       }).expect(201)
 
@@ -228,7 +228,7 @@ describe('[POST] /transactions', () => {
         Authorization: `Bearer ${userDebitedLoginResponse.body.accessToken as string}`
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 1500 // = R$10,00
       })
       .expect(201)
@@ -260,7 +260,7 @@ describe('[POST] /transactions', () => {
         Authorization: `Bearer ${userDebitedLoginResponse.body.accessToken as string}`
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 15000 // = R$150,00
       })
       .expect(400)
@@ -273,7 +273,7 @@ describe('[POST] /transactions', () => {
         Authorization: 'Bearer invalidtoken'
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 15000 // = R$150,00
       })
       .expect(403)
@@ -308,7 +308,7 @@ describe('[GET] /transactions', () => {
         Authorization: `Bearer ${loginResponse.body.accessToken as string}`
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 1000 // = R$10,00
       })
       .expect(201)
@@ -319,7 +319,7 @@ describe('[GET] /transactions', () => {
         Authorization: `Bearer ${loginResponse.body.accessToken as string}`
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 1500 // = R$15,00
       })
       .expect(201)
@@ -363,7 +363,7 @@ describe('[GET] /transactions/?{date=day/month/year}', () => {
         Authorization: `Bearer ${loginResponse.body.accessToken as string}`
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 1000 // = R$10,00
       })
       .expect(201)
@@ -374,7 +374,7 @@ describe('[GET] /transactions/?{date=day/month/year}', () => {
         Authorization: `Bearer ${loginResponse.body.accessToken as string}`
       })
       .send({
-        accountDestinationId: creditedUser.body.accountId,
+        username: creditedUser.body.username,
         value: 1500 // = R$15,00
       })
       .expect(201)

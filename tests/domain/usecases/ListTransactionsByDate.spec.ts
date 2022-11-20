@@ -27,14 +27,12 @@ describe('List transactions by date use case', () => {
     const fakeTransactionRepository = new FakeTransactionRepository()
     const performTransactionUseCase = new PerformTransaction(fakeUserRepository, fakeTransactionRepository)
 
-    const debitedUserAccount = (await fakeUserRepository.listByUsername('fakedebitedUser')) as User
-    const creditedUserAccountId = (await fakeUserRepository.listByUsername('fakecreditedUser')) as User
-
+    const debitedUserAccount = await fakeUserRepository.listByUsername('fakedebitedUser') as User
     const listTransactionsByDateUseCase = new ListTransactionsByDate(fakeTransactionRepository)
 
     await performTransactionUseCase.execute({
       debitedAccountId: debitedUserAccount.accountId,
-      creditedAccountId: creditedUserAccountId.accountId,
+      creditedUsername: 'fakecreditedUser',
       value: 1500
     })
 

@@ -24,7 +24,7 @@ describe('Create transaction model', () => {
         debitedAccountId: 'any_idCredited',
         value: 0
       })
-    }).toThrowError('Impossível realizar está transferência')
+    }).toThrowError('Valor da transferência deve ser maior que 0')
   })
 
   it('Should return an error when creditedAccountId is equal debitedAccountId', () => {
@@ -36,6 +36,6 @@ describe('Create transaction model', () => {
         debitedAccountId: 'any_idDebited',
         value: 10
       })
-    }).toThrowError('Impossível realizar está transferência')
+    }).toThrowError('Conta que recebe o cash-in não pode ser igual a conta que faz o cash-out')
   })
 })
