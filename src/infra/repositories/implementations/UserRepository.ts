@@ -43,9 +43,7 @@ class UserRepository implements IUserRepository {
     const user = await prisma.user.findFirst({ where: { id: userId } }) as User
     const account = await prisma.account.findFirst({ where: { id: user.accountId } }) as Account
     return {
-      id: user.id,
       username: user.username,
-      accountId: user.accountId,
       balance: account.balance
     }
   }
