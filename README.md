@@ -51,8 +51,6 @@ Template para enviar os dados:<br/>
 }
 ```
 
-<br/>
-
 ### Rota para fazer o login do usuário
 
 #### POST `/users`
@@ -66,8 +64,6 @@ Template para enviar os dados:<br>
   "password": "S3nhaforte"
 }
 ```
-
-<br/>
 
 ### Rota para fazer uma transferência (Necessário que seja passado o token de autenticação)
 
