@@ -38,9 +38,10 @@ describe('List transactions by date use case', () => {
       value: 1500
     })
 
+    const todayDate = new Date().toLocaleDateString()
     const transactionsToday = await listTransactionsByDateUseCase.execute({
       accountId: debitedUserAccount.accountId,
-      date: '19/11/2022'
+      date: todayDate
     })
     const transactionsOtherDay = await listTransactionsByDateUseCase.execute({
       accountId: debitedUserAccount.accountId,
